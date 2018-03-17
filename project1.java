@@ -18,5 +18,6 @@ public class project1 extends JFrame{
 	}
 	public static void main(String[] args) {
 		new project1();
+		//made change in 12.48 am --test
 	}
 }
