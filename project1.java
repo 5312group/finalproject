@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 public class project1 extends JFrame{
+	private JTextArea theArea = null;
 	private JLabel messageLabel;
 	private JMenuBar menuBar;
 	private JMenu fileMenu;
@@ -16,29 +18,41 @@ public class project1 extends JFrame{
 	private String[] fontChoice = {"Monospaced", "Serif","SansSerif"};
 	private JRadioButtonMenuItem itaButton;
 	private JRadioButtonMenuItem bolButton;
+	final JFileChooser fc = new JFileChooser();
+	private Component aComponent;
+    final int returnVal = fc.showOpenDialog(aComponent);
 	public project1(){
-		setTitle("Text Editor");
-		pack();
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		buildMenuBar();
+		super("Text Editor");
+		//setTitle("Text Editor");
+		setSize(300,400);
 		
+		setVisible(true);
+		theArea = new JTextArea();
+		theArea.setEditable(false);
+		getContentPane().add(new JScrollPane(theArea));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		menuBar.setOpaque(false);
+		JMenuBar mfile = buildMenuBar();
+		menuBar.add(mfile);
+		setJMenuBar(menuBar);
 	}
-	private void buildMenuBar(){
+	private JMenuBar buildMenuBar(){
 		//create the menu bar
 		menuBar = new JMenuBar();
+		
+		//menuBar.setOpaque(true);
 		//create two menus
 		buildFileMenu();
 		buildFontMenu();
 		//add files to main menubar
 		menuBar.add(fileMenu);
 		menuBar.add(fontMenu);
-		setJMenuBar(menuBar);
-	
-		
+		return menuBar;
+
 	}
 	
-	private void buildFileMenu(){
+	public void buildFileMenu(){
+		
 		fileMenu = new JMenu("File");
 		newItem = new JMenuItem("new");
 		openItem = new JMenuItem("open");
@@ -48,13 +62,23 @@ public class project1 extends JFrame{
 	
 		
 		fileMenu.add(newItem);
+		
 		fileMenu.add(openItem);
+		
+		openItem.addActionListener(new ActionListener(){
+	
+					public void actionPerformed(ActionEvent e)
+					{
+						theArea.append("- MenuItem New Performed -\n");
+					}
+		});
 		fileMenu.add(saveItem);
 		fileMenu.add(saveasItem);
 		fileMenu.add(exitItem);
+		
 	}
 	
-	private void buildFontMenu(){
+	public void buildFontMenu(){
 			
 			//fileMenu.add(newItem)
 			
@@ -72,9 +96,14 @@ public class project1 extends JFrame{
 			fontMenu.add(bolButton);
 			
 		}
-		
-	public static void main(String[] args) {
-		new project1();
-		//made change in 12.48 am --test
-	}
+
+	
+
+			
+		public static void main(String[] args) {
+			
+			new project1();
+			
+			//made change in 12.48 am --test
+		}
 }
