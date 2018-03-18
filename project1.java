@@ -11,11 +11,68 @@ public class project1 extends JFrame{
 	private JMenuItem openItem;
 	private JMenuItem saveItem;
 	private JMenuItem saveasItem;
+	private JMenuItem exitItem;
+	private JList menuList;
+	private String[] fontChoice = {"Monospaced", "Serif","SansSerif"};
+	private JRadioButtonMenuItem itaButton;
+	private JRadioButtonMenuItem bolButton;
 	public project1(){
 		setTitle("Text Editor");
-		setSize(400,300)
+		pack();
 		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		buildMenuBar();
+		
 	}
+	private void buildMenuBar(){
+		//create the menu bar
+		menuBar = new JMenuBar();
+		//create two menus
+		buildFileMenu();
+		buildFontMenu();
+		//add files to main menubar
+		menuBar.add(fileMenu);
+		menuBar.add(fontMenu);
+		setJMenuBar(menuBar);
+	
+		
+	}
+	
+	private void buildFileMenu(){
+		fileMenu = new JMenu("File");
+		newItem = new JMenuItem("new");
+		openItem = new JMenuItem("open");
+		saveItem = new JMenuItem("save");
+		saveasItem = new JMenuItem("save as");
+		exitItem = new JMenuItem("exit");
+	
+		
+		fileMenu.add(newItem);
+		fileMenu.add(openItem);
+		fileMenu.add(saveItem);
+		fileMenu.add(saveasItem);
+		fileMenu.add(exitItem);
+	}
+	
+	private void buildFontMenu(){
+			
+			//fileMenu.add(newItem)
+			
+			itaButton = new JRadioButtonMenuItem("Italic",true);
+			bolButton = new JRadioButtonMenuItem("Bold",true);
+			ButtonGroup group = new ButtonGroup();
+			group.add(itaButton);
+			group.add(bolButton);
+			fontMenu = new JMenu("Font");
+			menuList = new JList(fontChoice);
+			fontMenu.add(menuList);
+			menuList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+			fontMenu.addSeparator();
+			fontMenu.add(itaButton);
+			fontMenu.add(bolButton);
+			
+		}
+		
 	public static void main(String[] args) {
 		new project1();
 		//made change in 12.48 am --test
